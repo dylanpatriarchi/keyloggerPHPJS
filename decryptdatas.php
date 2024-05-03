@@ -14,7 +14,7 @@ if (!file_exists($logFileName)) {
 
 $logData = file_get_contents($logFileName);
 
-$logEntries = json_decode($logData, true);
+$logEntries = explode(",", $logData);
 
 foreach ($logEntries as $encryptedData) {
     $decrypted = openssl_decrypt($encryptedData, CIPHERING, ENCRYPTION_KEY, 0, ENCRYPTION_IV);
